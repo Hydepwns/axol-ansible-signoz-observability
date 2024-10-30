@@ -1,0 +1,43 @@
+{{ ansible_managed | comment }}
+
+version: '3.9'
+x-logging: &logging
+  logging:
+    driver: json-file
+    options:
+      max-size: 10m
+      max-file: "3"
+      tag: {% raw %}'observability|{{.ImageName}}|{{.Name}}|{{.ImageFullID}}|{{.ID}}'{% endraw %}
+
+
+services:
+
+  signoz:
+    image: {{ signoz_docker_image }}
+    container_name: signoz
+    restart: on-failure:5
+    tmpfs:
+      - /run
+      - /tmp
+    security_opt:
+      - no-new-privileges
+    ports:
+      - "{{ host_ip_address_to_bind_to }}:3301:3301/tcp"  # SigNoz API
+      - "{{ host_ip_address_to_bind_to }}:3302:3302/tcp"  # SigNoz Agent
+    volumes:
+      - signoz-data:/var/lib/signoz
+      - /etc/localtime:/etc/localtime:ro
+    networks:
+      - "{{ docker_network }}"
+    deploy:
+      resources:
+        limits:
+          memory: {{ signoz_container_memory_limit }}
+
+networks:
+  "{{ docker_network }}":
+    name: "{{ docker_network }}"
+
+
+volumes:
+  signoz-data:

@@ -5,6 +5,34 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.0] - 2024-03-10 - AXOL.IO HOSTILE TAKE-OVER
+
+### Added
+
+- Added parametrized docker network
+
+### Fixed
+
+- Bugfix prometheus service discovery file logic for execution clients
+- Updated community.docker.docker_compose to community.docker.docker_compose_v2
+- Updated community.docker collection
+- Fixed docker-compose files Bug with duplication restart policy
+- Updated geerlingguy.docker for tests
+
+### Changed
+
+- Removed instances of ELK, Prometheus, and Grafana in favor of Signoz
+- Changed signoz image from v0.9.0 to v0.10.0
+- Changed filebeat image from 8.9.0 to 8.11.1
+- Changed node-exporter image from v1.6.1 to v1.7.0
+- Changed ethereum-metrics-exporter image from 0.21.0 to 0.22.0
+- Changed signoz image from v0.8.0 to v0.9.0
+- Changed filebeat image from 8.7.0 to 8.9.0
+- Changed node-exporter image from v1.5.0 to v1.6.1
+- Changed cadvisor image from v0.47.1 to v0.47.2
+
+--
+
 ## [0.9.0] - 2024-03-09
 
 ### Fixed
@@ -41,7 +69,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Added support for Lodestar
-
 
 ## [0.5.1] - 2023-06-07
 
@@ -80,7 +107,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Removed duplicated 'restart' key from dc-observability.yml template
 
-
 ## [0.3.0] - 2023-05-19
 
 ### Changed
@@ -91,20 +117,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - prepare_with_clients.yml Molecule playbook was deploying Observability role instead of the ehteruem role
 
-
 ## [0.2.0] - 2023-05-14
 
 ### Changed
 
 - Added docker container hardening
 
-
 ## [0.1.1] - 2023-05-14
 
 ### Fixed
 
 - Set tags for docker images
-
 
 ## [0.1.0] - 2023-05-09
 

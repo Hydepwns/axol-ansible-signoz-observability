@@ -1,0 +1,19 @@
+## SigNoz checks
+- name: Check SigNoz is scraping the metrics from targets (agents only)
+  ansible.builtin.uri:
+    # Get all metrics
+    url: "http://{{ 'localhost' if single_server_deployment else monitoring_server_host }}:3301/api/v1/metrics"
+    return_content: true
+    method: GET
+    status_code:
+      - 200
+  register: signoz_metrics
+  retries: 20
+  delay: 3
+
+- name: Assert expected metrics are present in SigNoz response
+  ansible.builtin.assert:
+    that:
+      # Example SigNoz metrics
+      - "'signoz_cpu_usage' in signoz_metrics['content']"
+      - "'signoz_memory_usage' in signoz_metrics['content']"

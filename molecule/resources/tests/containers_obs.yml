@@ -1,22 +1,10 @@
 ---
-- name: Get grafana container info
+- name: Get signoz container info
   community.docker.docker_container_info:
-    name: grafana
-  register: grafana_container
+    name: signoz
+  register: signoz_container
 
-- name: Get prometheus container info
-  community.docker.docker_container_info:
-    name: prometheus
-  register: prometheus_container
-
-- name: Get elk container info
-  community.docker.docker_container_info:
-    name: elk
-  register: elk_container
-
-- name: Assert observability containers are running
+- name: Assert observability container is running
   ansible.builtin.assert:
     that:
-      - grafana_container.container.State.Status == "running"
-      - prometheus_container.container.State.Status == "running"
-      - elk_container.container.State.Status == "running"
+      - signoz_container.container.State.Status == "running"

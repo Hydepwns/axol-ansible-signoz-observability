@@ -24,13 +24,13 @@
     dest: "{{ item.dest }}"
     mode: '0600'
   loop:
-    - src: templates/docker-compose/dc-observability-agents.yml.j2
-      dest: "{{ observability_docker_compose_path }}/agents/dc-observability-agents.yml"
+    - src: templates/docker-compose/dc-signoz-agents.yml.j2
+      dest: "{{ observability_docker_compose_path }}/agents/dc-signoz-agents.yml"
 
 
 - name: Start observability agents stack
   community.docker.docker_compose_v2:
     project_src: "{{ observability_docker_compose_path }}/agents"
     files:
-      - dc-observability-agents.yml
+      - dc-signoz-agents.yml
     remove_orphans: true

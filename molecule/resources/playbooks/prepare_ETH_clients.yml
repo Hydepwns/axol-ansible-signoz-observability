@@ -23,6 +23,6 @@
         name: geerlingguy.docker
 
 
-    - name: Deploy Clients
+    - name: Deploy Ethereum Clients
       ansible.builtin.include_role:
-        name: slingnode.ethereum
+        name: axol.ethereum

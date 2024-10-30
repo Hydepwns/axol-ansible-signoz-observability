@@ -1,9 +1,9 @@
-# Prometheus scrape conf is always present for both single_srv and multi_tier
+# SigNoz scrape conf is always present for both single_srv and multi_tier
 scrape_configs:
-  - job_name: 'prometheus'
+  - job_name: 'signoz'
     scrape_interval: 5s
     static_configs:
-    - targets: ['prometheus:9090']
+    - targets: ['signoz:3301']
 
 {% if single_server_deployment %}
 # single server deployment Targets are containers accessed over docker net
@@ -34,7 +34,6 @@ scrape_configs:
     metrics_path: /metrics
     static_configs:
       - targets: ['{{ container_name_validator }}:{{ validator_client_metrics_port }}']
-{% endif %}
 # If we hit else this means this is multi tier deployment and we need the dynamic config
 {% else %}
   - job_name: 'node_exporter'

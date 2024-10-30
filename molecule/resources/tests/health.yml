@@ -1,73 +1,26 @@
 ---
-# Prometheus checks
-- name: Check prometheus ready
+# SigNoz checks
+- name: Check SigNoz API ready
   ansible.builtin.uri:
-    url: "http://{{ 'localhost' if single_server_deployment else monitoring_server_host }}:9090/-/ready"
+    url: "http://{{ 'localhost' if single_server_deployment else monitoring_server_host }}:3301/api/v1/health"
     return_content: true
     method: GET
     status_code:
       - 200
-  register: prometheus_ready_response
+  register: signoz_api_ready_response
   retries: 20
   delay: 3
-  until: "'Prometheus Server is Ready.' in prometheus_ready_response.content"
+  until: "'SigNoz API is Ready.' in signoz_api_ready_response.content"
 
 
-- name: Check prometheus healthy
+- name: Check SigNoz Agent ready
   ansible.builtin.uri:
-    url: "http://{{ 'localhost' if single_server_deployment else monitoring_server_host }}:9090/-/healthy"
+    url: "http://{{ 'localhost' if single_server_deployment else monitoring_server_host }}:3302/api/v1/health"
     return_content: true
     method: GET
     status_code:
       - 200
-  register: prometheus_health_response
+  register: signoz_agent_ready_response
   retries: 20
   delay: 3
-  until: "'Prometheus Server is Healthy.' in prometheus_health_response.content"
-
-
-## Grafana checks
-- name: Check grafana health
-  ansible.builtin.uri:
-    url: "http://{{ 'localhost' if single_server_deployment else monitoring_server_host }}:3000/api/health"
-    method: GET
-    status_code:
-      - 200
-    headers:
-      Content-Type: application/json
-  register: grafana_health_response
-  retries: 20
-  delay: 3
-
-
-## Elk checks
-- name: Check ElasticSearch health
-  ansible.builtin.uri:
-    url: "http://{{ 'localhost' if single_server_deployment else monitoring_server_host }}:9200/_cluster/health/"
-    return_content: true
-    method: GET
-    status_code:
-      - 200
-    headers:
-      Content-Type: application/json
-  register: elk_health_response
-  retries: 12
-  delay: 10
-  failed_when: elk_health_response.json['status'] == "red"
-  until: elk_health_response.json['status'] == "yellow" or elk_health_response.json['status'] == "green"
-
-
-- name: Check Kibana health
-  ansible.builtin.uri:
-    url: "http://{{ 'localhost' if single_server_deployment else monitoring_server_host }}:5601/api/status"
-    return_content: true
-    method: GET
-    status_code:
-      - 200
-    headers:
-      Content-Type: application/json
-  register: kibana_health_response
-  retries: 12
-  delay: 5
-  failed_when: not kibana_health_response['json']['status']['overall']['level'] == "available"
-  until: kibana_health_response['json']['status']['overall']['level'] == "available"
+  until: "'SigNoz Agent is Ready.' in signoz_agent_ready_response.content"

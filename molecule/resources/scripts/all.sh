@@ -5,6 +5,6 @@ run_test () {
 }
 
 run_test default
-run_test obs_clients_sinlge_tier
+run_test obs_clients_single_tier
 run_test obs_only
 run_test obs_only_multi_tier

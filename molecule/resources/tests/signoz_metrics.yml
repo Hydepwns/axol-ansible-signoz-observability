@@ -1,0 +1,32 @@
+## SigNoz checks
+- name: Check SigNoz is scraping the metrics from targets
+  ansible.builtin.uri:
+    # Get all metrics
+    url: "http://{{ 'localhost' if single_server_deployment else monitoring_server_host }}:3301/api/v1/metrics"
+    return_content: true
+    method: GET
+    status_code:
+      - 200
+  register: signoz_metrics
+  retries: 20
+  delay: 3
+
+- name: Check SigNoz metrics
+  ansible.builtin.uri:
+    url: "http://{{ monitoring_server_host }}:3301/api/v1/metrics"
+    method: GET
+    status_code: 200
+  register: signoz_metrics
+
+- name: Assert expected metrics are present in SigNoz response
+  ansible.builtin.assert:
+    that:
+      # ethereum-metrics-exporter
+      - "'eth_con_node_version' in signoz_metrics['content']"
+      - "'eth_exe_web3_client_version' in signoz_metrics['content']"
+      # execution - Geth - need to check other clients if this metrics is present
+      - "'eth_downloader_headers_req_count' in signoz_metrics['content']"
+      # consensus - Lighthouse
+      - "'store_beacon_state_read_seconds_bucket' in signoz_metrics['content']"
+      # validator - Lighthouse
+      - "'vc_validators_total_count' in signoz_metrics['content']"

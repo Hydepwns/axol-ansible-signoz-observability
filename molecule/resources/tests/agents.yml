@@ -1,46 +1,33 @@
 ---
-- name: Get node-exporter metrics
+- name: Get SigNoz API metrics
   ansible.builtin.uri:
-    url: http://localhost:9100/metrics
+    url: http://localhost:3301/api/v1/metrics
     return_content: true
     method: GET
     status_code:
       - 200
-  register: node_exporter_response
+  register: signoz_api_metrics_response
   retries: 20
   delay: 3
-  until: "node_exporter_response['status'] == 200"
+  until: "signoz_api_metrics_response['status'] == 200"
 
 
-- name: Get Cadvisor metrics
+- name: Get SigNoz Agent metrics
   ansible.builtin.uri:
-    url: http://localhost:8080/metrics
+    url: http://localhost:3302/api/v1/metrics
     return_content: true
     method: GET
     status_code:
       - 200
-  register: cadvisor_response
+  register: signoz_agent_metrics_response
   retries: 20
   delay: 3
-  until: "cadvisor_response['status'] == 200"
+  until: "signoz_agent_metrics_response['status'] == 200"
 
 
-- name: Get ethereum-metrics-exporter metrics
-  ansible.builtin.uri:
-    url: http://localhost:9091/metrics
-    return_content: true
-    method: GET
-    status_code:
-      - 200
-  register: ethereum_metrics_exporter
-  retries: 20
-  delay: 3
-  until: "ethereum_metrics_exporter['status'] == 200"
-
-
-- name: Assert expected metrics are present in prometheus response
+- name: Assert expected metrics are present in SigNoz response
   ansible.builtin.assert:
     that:
-      - "'node_network_up' in node_exporter_response['content']"
-      - "'eth_exe_block_safe_block_size_bytes' in ethereum_metrics_exporter['content']"
-      - "'container_memory_rss' in cadvisor_response['content']"
+      - "'node_network_up' in signoz_api_metrics_response['content']"
+      - "'eth_exe_block_safe_block_size_bytes' in signoz_agent_metrics_response['content']"
+      - "'container_memory_rss' in signoz_agent_metrics_response['content']"

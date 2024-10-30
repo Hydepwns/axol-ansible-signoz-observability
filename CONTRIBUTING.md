@@ -51,4 +51,4 @@ Yes. Ultimately we want this be a community driven project, if you have written 
 
 ### Testing
 
-We take testing seriously. Ideally your pull request would be tested against project's test suite. See [Testing](https://slingnode.gitbook.io/slingnode.ethereum/testing) for details. However, we will test all pull requests before merging them.
+We take testing seriously. Ideally your pull request would be tested against project's test suite. See [Testing](https://axol.gitbook.io/axol.ethereum/testing) for details. However, we will test all pull requests before merging them.

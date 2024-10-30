@@ -33,9 +33,9 @@
   when: install_monitoring_agents | bool
 
 
-- name: Reset permissions on ELK directory
+- name: Reset permissions on observability directory
   ansible.builtin.file:
-    path: "{{ observability_root_path }}/elk"
+    path: "{{ observability_root_path }}/signoz"
     state: directory
     mode: '0755'
     recurse: true
@@ -52,7 +52,6 @@
   loop:
     - { port: "{{ node_exporter_port }}/tcp" }
     - { port: "{{ container_advisor_port }}/tcp" }
-    - { port: "{{ ethereum_metrics_exporter_port }}/tcp" }
     - { port: "{{ execution_client_metrics_port }}/tcp" }
     - { port: "{{ consensus_client_metrics_port }}/tcp" }
     - { port: "{{ validator_client_metrics_port }}/tcp" }
@@ -68,7 +67,6 @@
   loop:
     - { port: "{{ node_exporter_port }}", proto: tcp, rule: allow }
     - { port: "{{ container_advisor_port }}", proto: tcp, rule: allow }
-    - { port: "{{ ethereum_metrics_exporter_port }}", proto: tcp, rule: allow }
     - { port: "{{ execution_client_metrics_port }}", proto: tcp, rule: allow }
     - { port: "{{ consensus_client_metrics_port }}", proto: tcp, rule: allow }
     - { port: "{{ validator_client_metrics_port }}", proto: tcp, rule: allow }

@@ -7,4 +7,4 @@
   tasks:
     - name: "Include observability"
       ansible.builtin.include_role:
-        name: "slingnode-ansible-ethereum-observability"
+        name: "axol-ansible-signoz-observability"

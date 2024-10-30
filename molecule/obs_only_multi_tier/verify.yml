@@ -1,6 +1,6 @@
 ---
 - name: Verify - monitoring_server
-  hosts: slingnode-test-01
+  hosts: axol-test-01
   become: true
   gather_facts: true
 
@@ -21,9 +21,9 @@
         file: ../resources/tests/health.yml
 
 
-    - name: Include prometheus metrics test tasks
+    - name: Include SigNoz metrics test tasks
       ansible.builtin.include_tasks:
-        file: ../resources/tests/prometheus_metrics_agents_only.yml
+        file: ../resources/tests/signoz_metrics_agents_only.yml
 
 
 - name: Verify - agents

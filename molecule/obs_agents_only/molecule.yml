@@ -7,7 +7,7 @@ dependency:
     ignore-errors: true
     role-file: requirements_dev.yml
     requirements-file: requirements.yml
-    force: ${SLINGNODE_FORCE:-true}
+    force: ${AXOL_FORCE:-true}
 
 driver:
   name: vagrant
@@ -16,11 +16,11 @@ driver:
   provision: true
   cachier: machine
   parallel: true
-  default_box: '${SLINGNODE_BOX:-generic/ubuntu2004}'
+  default_box: '${AXOL_BOX:-generic/ubuntu2004}'
 
 platforms:
-  - name: slingnode-test-01
-    hostname: slingnode-test-01
+  - name: axol-test-01
+    hostname: axol-test-01
     config_options:
       ssh.keep_alive: true
       ssh.remote_user: 'vagrant'
@@ -55,9 +55,9 @@ provisioner:
         deploy_validator: true
 
         clients:
-          consensus: ${SLINGNODE_CONSENSUS:-lighthouse}
-          execution: ${SLINGNODE_EXECUTION:-geth}
-          validator: ${SLINGNODE_VALIDATOR:-lighthouse}
+          consensus: ${AXOL_CONSENSUS:-lighthouse}
+          execution: ${AXOL_EXECUTION:-geth}
+          validator: ${AXOL_VALIDATOR:-lighthouse}
 
 
 verifier:

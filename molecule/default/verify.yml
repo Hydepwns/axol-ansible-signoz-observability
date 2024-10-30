@@ -26,6 +26,6 @@
         file: ../resources/tests/health.yml
 
 
-    - name: Include Prometheus metrics test tasks
+    - name: Include SigNoz metrics test tasks
       ansible.builtin.include_tasks:
-        file: ../resources/tests/prometheus_metrics.yml
+        file: ../resources/tests/signoz_metrics.yml

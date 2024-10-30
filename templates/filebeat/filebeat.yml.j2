@@ -8,13 +8,13 @@ filebeat.autodiscover:
         - condition:
             or:
               - equals:
-                  docker.container.labels.slingnode_client: besu
+                  docker.container.labels.axol_client: besu
               - equals:
-                  docker.container.labels.slingnode_client: nethermind
+                  docker.container.labels.axol_client: nethermind
               - equals:
-                  docker.container.labels.slingnode_client: teku
+                  docker.container.labels.axol_client: teku
               - equals:
-                  docker.container.labels.slingnode_client: lodestar
+                  docker.container.labels.axol_client: lodestar
           config:
             - type: container
               paths:
@@ -30,7 +30,7 @@ filebeat.autodiscover:
         - condition:
             or:
               - equals:
-                  docker.container.labels.slingnode_client: lodestar
+                  docker.container.labels.axol_client: lodestar
           config:
             - type: container
               paths:
@@ -45,13 +45,13 @@ filebeat.autodiscover:
         - condition:
             or:
               - equals:
-                  docker.container.labels.slingnode_client: geth
+                  docker.container.labels.axol_client: geth
               - equals:
-                  docker.container.labels.slingnode_client: erigon
+                  docker.container.labels.axol_client: erigon
               - equals:
-                  docker.container.labels.slingnode_layer: consensus
+                  docker.container.labels.axol_layer: consensus
               - equals:
-                  docker.container.labels.slingnode_layer: validator
+                  docker.container.labels.axol_layer: validator
           config:
             - type: container
               paths:
